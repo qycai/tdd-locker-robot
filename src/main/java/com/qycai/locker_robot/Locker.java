@@ -27,4 +27,8 @@ public class Locker {
         record.put(ticket, bag);
         return ticket;
     }
+
+    public Bag take(Ticket ticket) {
+        return record.get(ticket);
+    }
 }
