@@ -2,6 +2,7 @@ package com.qycai.locker_robot;
 
 import com.qycai.locker_robot.exception.BagAndLockerSizeIsMismatchException;
 import com.qycai.locker_robot.exception.LockerIsFullException;
+import com.qycai.locker_robot.exception.TicketIsInvalidException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,12 @@ public class Locker {
         return ticket;
     }
 
-    public Bag take(Ticket ticket) {
-        return record.get(ticket);
+    public Bag take(Ticket ticket) throws TicketIsInvalidException {
+        if (!record.containsKey(ticket)) {
+            throw new TicketIsInvalidException();
+        }
+        Bag bag = record.get(ticket);
+        record.remove(ticket);
+        return bag;
     }
 }

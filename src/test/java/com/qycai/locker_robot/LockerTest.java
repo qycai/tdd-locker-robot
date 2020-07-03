@@ -2,6 +2,7 @@ package com.qycai.locker_robot;
 
 import com.qycai.locker_robot.exception.BagAndLockerSizeIsMismatchException;
 import com.qycai.locker_robot.exception.LockerIsFullException;
+import com.qycai.locker_robot.exception.TicketIsInvalidException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,7 +44,7 @@ public class LockerTest {
     }
 
     @Test
-    void should_get_bag_when_take_bag_given_valid_ticket() throws BagAndLockerSizeIsMismatchException, LockerIsFullException {
+    void should_get_bag_when_take_bag_given_valid_ticket() throws BagAndLockerSizeIsMismatchException, LockerIsFullException, TicketIsInvalidException {
         Bag savedBag = new Bag("S");
         Locker locker = new Locker(3, "S");
         Ticket ticket = locker.save(savedBag);
@@ -51,5 +52,14 @@ public class LockerTest {
         Bag bag = locker.take(ticket);
 
         assertEquals(savedBag, bag);
+    }
+
+    @Test
+    void should_throw_ticketIsInvalidException_when_take_bag_given_invalid_ticket() throws BagAndLockerSizeIsMismatchException, LockerIsFullException {
+        Bag savedBag = new Bag("S");
+        Locker locker = new Locker(3, "S");
+        Ticket ticket = locker.save(savedBag);
+
+        assertThrows(TicketIsInvalidException.class, () -> locker.take(new Ticket()));
     }
 }
