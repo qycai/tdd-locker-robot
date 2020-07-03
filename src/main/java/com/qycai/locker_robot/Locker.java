@@ -1,5 +1,8 @@
 package com.qycai.locker_robot;
 
+import com.qycai.locker_robot.exception.BagAndLockerSizeIsMismatchException;
+import com.qycai.locker_robot.exception.LockerIsFullException;
+
 import java.util.HashMap;
 import java.util.Map;
 

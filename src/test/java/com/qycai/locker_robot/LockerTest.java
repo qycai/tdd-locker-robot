@@ -1,5 +1,7 @@
 package com.qycai.locker_robot;
 
+import com.qycai.locker_robot.exception.BagAndLockerSizeIsMismatchException;
+import com.qycai.locker_robot.exception.LockerIsFullException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,6 +30,14 @@ public class LockerTest {
     @Test
     void should_throw_bagAndLockerSizeIsMismatchException_when_save_bag_given_S_locker_and_M_bag() {
         Bag bag = new Bag("M");
+        Locker locker = new Locker(1, "S");
+
+        assertThrows(BagAndLockerSizeIsMismatchException.class, () -> locker.save(bag));
+    }
+
+    @Test
+    void should_throw_bagAndLockerSizeIsMismatchException_when_save_bag_given_S_locker_and_L_bag() {
+        Bag bag = new Bag("L");
         Locker locker = new Locker(1, "S");
 
         assertThrows(BagAndLockerSizeIsMismatchException.class, () -> locker.save(bag));
