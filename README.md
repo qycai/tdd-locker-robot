@@ -124,9 +124,17 @@ when：用户存L型包
 then：存包失败，提示已满  
 
 given：manager管理一个S型locker1和一个primaryLockerRobot和一个superLockerRobot，primaryLockerRobot管理locker2，superLockerRobot使用有效票  
-when：取包  
+when：取包S型包  
 then：取包成功  
 
+given：manager管理一个S型locker1和一个primaryLockerRobot和一个superLockerRobot，primaryLockerRobot管理locker2，superLockerRobot使用有效票  
+when：取包M型包  
+then：取包成功  
+
+given：manager管理一个S型locker1和一个primaryLockerRobot和一个superLockerRobot，primaryLockerRobot管理locker2，superLockerRobot使用有效票  
+when：取包L型包  
+then：取包成功  
+ 
 given：manager管理一个S型locker1和一个primaryLockerRobot和一个superLockerRobot，primaryLockerRobot管理locker2，superLockerRobot使用无效票  
 when：取包  
 then：取包失败，提示票无效  
