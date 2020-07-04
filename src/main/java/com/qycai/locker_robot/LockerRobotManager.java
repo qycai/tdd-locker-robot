@@ -50,16 +50,31 @@ public class LockerRobotManager {
     }
 
     public Bag take(Ticket ticket) throws TicketIsInvalidException {
-        if (ticket.getType().equals(TicketType.GIVEN_BY_S_Locker)) {
-            for (Locker locker : lockers) {
-                return locker.take(ticket);
-            }
-        } else if (ticket.getType().equals(TicketType.GIVEN_BY_M_Locker)) {
-            for (LockerRobot robot : robots) {
-                return robot.take(ticket);
-            }
+        switch (ticket.getType()) {
+            case GIVEN_BY_S_Locker:
+                for (Locker locker : lockers) {
+                    return locker.take(ticket);
+                }
+                break;
+            case GIVEN_BY_M_Locker:
+                for (LockerRobot robot : robots) {
+                    for (Locker locker : robot.lockers) {
+                        if (locker.getType().equals("M")) {
+                            return robot.take(ticket);
+                        }
+                    }
+                }
+                break;
+            case GIVEN_BY_L_Locker:
+                for (LockerRobot robot : robots) {
+                    for (Locker locker : robot.lockers) {
+                        if (locker.getType().equals("L")) {
+                            return robot.take(ticket);
+                        }
+                    }
+                }
+                break;
         }
-
         return null;
     }
 }
