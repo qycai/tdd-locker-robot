@@ -73,4 +73,16 @@ public class PrimaryLockerRobotTest {
 
         assertThrows(TicketIsInvalidException.class, () -> primaryLockerRobot.take(new Ticket()));
     }
+
+    @Test
+    void should_throw_ticketIsInvalidException_when_take_bag_given_used_ticket() throws LockerIsFullException, TicketIsInvalidException {
+        Locker locker1 = new Locker(2, "M");
+        Locker locker2 = new Locker(3, "M");
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
+        Bag saveBag = new Bag("M");
+        Ticket ticket = primaryLockerRobot.save(saveBag);
+        primaryLockerRobot.take(ticket);
+
+        assertThrows(TicketIsInvalidException.class, () -> primaryLockerRobot.take(ticket));
+    }
 }
