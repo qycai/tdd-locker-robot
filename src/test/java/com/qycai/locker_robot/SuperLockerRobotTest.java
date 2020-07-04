@@ -5,6 +5,7 @@ import com.qycai.locker_robot.exception.TicketIsInvalidException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -87,4 +88,18 @@ public class SuperLockerRobotTest {
 
         assertThrows(TicketIsInvalidException.class, () -> superLockerRobot.take(new Ticket()));
     }
+
+    @Test
+    void should_throw_ticketIsInvalidException_when_take_bag_by_superLockerRobot_given_ticket_is_returned_by_primaryLockerRobot() throws LockerIsFullException {
+        Locker locker1 = new Locker(3, "L");
+        Locker locker2 = new Locker(10, "L");
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Collections.singletonList(locker1));
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Collections.singletonList(locker2));
+        Bag savedBag = new Bag("L");
+        Ticket ticket = primaryLockerRobot.save(savedBag);
+
+        assertThrows(TicketIsInvalidException.class, () -> superLockerRobot.take(ticket));
+    }
+
+
 }
