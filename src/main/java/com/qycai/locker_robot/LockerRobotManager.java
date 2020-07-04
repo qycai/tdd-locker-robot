@@ -26,6 +26,14 @@ public class LockerRobotManager {
                     }
                 }
             }
+        } else if (bag.getType().equals("L")) {
+            for (LockerRobot robot : robots) {
+                for (Locker locker : robot.lockers) {
+                    if (locker.getType().equals("L")) {
+                        return robot.save(bag);
+                    }
+                }
+            }
         }
         return null;
     }
