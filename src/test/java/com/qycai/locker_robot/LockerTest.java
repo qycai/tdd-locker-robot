@@ -1,6 +1,5 @@
 package com.qycai.locker_robot;
 
-import com.qycai.locker_robot.exception.BagAndLockerSizeIsMismatchException;
 import com.qycai.locker_robot.exception.LockerIsFullException;
 import com.qycai.locker_robot.exception.TicketIsInvalidException;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LockerTest {
     @Test
-    void should_return_ticket_when_save_bag_given_S_locker_and_S_bag_and_locker_is_not_full() throws LockerIsFullException, BagAndLockerSizeIsMismatchException {
+    void should_return_ticket_when_save_bag_given_S_locker_and_S_bag_and_locker_is_not_full() throws LockerIsFullException {
         Bag bag = new Bag("S");
         Locker locker = new Locker(3, "S");
 
@@ -19,7 +18,7 @@ public class LockerTest {
     }
 
     @Test
-    void should_throw_lockerIsFullException_when_save_bag_given_S_locker_and_S_bag_and_locker_is_full() throws LockerIsFullException, BagAndLockerSizeIsMismatchException {
+    void should_throw_lockerIsFullException_when_save_bag_given_S_locker_and_S_bag_and_locker_is_full() throws LockerIsFullException {
         Bag bag = new Bag("S");
         Locker locker = new Locker(1, "S");
         locker.save(bag);
@@ -28,23 +27,7 @@ public class LockerTest {
     }
 
     @Test
-    void should_throw_bagAndLockerSizeIsMismatchException_when_save_bag_given_S_locker_and_M_bag() {
-        Bag bag = new Bag("M");
-        Locker locker = new Locker(1, "S");
-
-        assertThrows(BagAndLockerSizeIsMismatchException.class, () -> locker.save(bag));
-    }
-
-    @Test
-    void should_throw_bagAndLockerSizeIsMismatchException_when_save_bag_given_S_locker_and_L_bag() {
-        Bag bag = new Bag("L");
-        Locker locker = new Locker(1, "S");
-
-        assertThrows(BagAndLockerSizeIsMismatchException.class, () -> locker.save(bag));
-    }
-
-    @Test
-    void should_get_bag_when_take_bag_given_valid_ticket() throws BagAndLockerSizeIsMismatchException, LockerIsFullException, TicketIsInvalidException {
+    void should_get_bag_when_take_bag_given_valid_ticket() throws LockerIsFullException, TicketIsInvalidException {
         Bag savedBag = new Bag("S");
         Locker locker = new Locker(3, "S");
         Ticket ticket = locker.save(savedBag);
@@ -55,7 +38,7 @@ public class LockerTest {
     }
 
     @Test
-    void should_throw_ticketIsInvalidException_when_take_bag_given_invalid_ticket() throws BagAndLockerSizeIsMismatchException, LockerIsFullException {
+    void should_throw_ticketIsInvalidException_when_take_bag_given_invalid_ticket() throws LockerIsFullException {
         Bag savedBag = new Bag("S");
         Locker locker = new Locker(3, "S");
         Ticket ticket = locker.save(savedBag);

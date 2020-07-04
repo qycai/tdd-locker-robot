@@ -1,6 +1,5 @@
 package com.qycai.locker_robot;
 
-import com.qycai.locker_robot.exception.BagAndLockerSizeIsMismatchException;
 import com.qycai.locker_robot.exception.LockerIsFullException;
 import com.qycai.locker_robot.exception.TicketIsInvalidException;
 
@@ -17,12 +16,9 @@ public class Locker {
         this.size = size;
     }
 
-    public Ticket save(Bag bag) throws LockerIsFullException, BagAndLockerSizeIsMismatchException {
+    public Ticket save(Bag bag) throws LockerIsFullException {
         if (record.size() >= capacity) {
             throw new LockerIsFullException();
-        }
-        if (!bag.getSize().equals(this.size)) {
-            throw new BagAndLockerSizeIsMismatchException();
         }
         Ticket ticket = new Ticket();
         record.put(ticket, bag);
