@@ -2,7 +2,9 @@ package com.qycai.locker_robot;
 
 import com.qycai.locker_robot.exception.LockerIsFullException;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class SuperLockerRobot {
     private List<Locker> lockers;
@@ -12,6 +14,10 @@ public class SuperLockerRobot {
     }
 
     public Ticket save(Bag bag) throws LockerIsFullException {
-        return lockers.get(0).save(bag);
+        Optional<Locker> maxAvailableCapacityLocker = lockers.stream().max(Comparator.comparing(Locker::availableCapacity));
+        if (maxAvailableCapacityLocker.isPresent()) {
+            return maxAvailableCapacityLocker.get().save(bag);
+        }
+        return null;
     }
 }

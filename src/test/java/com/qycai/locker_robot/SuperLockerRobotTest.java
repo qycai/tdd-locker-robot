@@ -23,4 +23,18 @@ public class SuperLockerRobotTest {
         Bag bag = locker1.take(ticket);
         assertEquals(savedBag, bag);
     }
+
+    @Test
+    void should_return_ticket_and_saved_to_2nd_locker_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_1st_locker_capacity_is_less_than_2nd_locker() throws TicketIsInvalidException, LockerIsFullException {
+        Locker locker1 = new Locker(2, "L");
+        Locker locker2 = new Locker(6, "L");
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
+        Bag savedBag = new Bag("L");
+
+        Ticket ticket = superLockerRobot.save(savedBag);
+
+        assertNotNull(ticket);
+        Bag bag = locker2.take(ticket);
+        assertEquals(savedBag, bag);
+    }
 }

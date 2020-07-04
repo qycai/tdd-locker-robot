@@ -41,4 +41,8 @@ public class Locker {
     public boolean hasBag(Ticket ticket) {
         return record.containsKey(ticket);
     }
+
+    public int availableCapacity() {
+        return capacity - record.size();
+    }
 }
