@@ -38,4 +38,15 @@ public class PrimaryLockerRobotTest {
         Bag bag = locker2.take(ticket);
         assertEquals(savedBag, bag);
     }
+
+    @Test
+    void should_throw_lockerIsFullException_when_save_bag_given_primary_locker_robot_manager_two_M_locker_and_both_are_full() throws LockerIsFullException, TicketIsInvalidException {
+        Locker locker1 = new Locker(1, "M");
+        Locker locker2 = new Locker(1, "M");
+        locker1.save(new Bag("M"));
+        locker2.save(new Bag("M"));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
+
+        assertThrows(LockerIsFullException.class, () -> primaryLockerRobot.save(new Bag("M")));
+    }
 }

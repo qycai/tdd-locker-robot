@@ -12,9 +12,11 @@ public class PrimaryLockerRobot {
     }
 
     public Ticket save(Bag bag) throws LockerIsFullException {
-        if (lockers.get(0).isFull()) {
-            return lockers.get(1).save(bag);
+        for (Locker locker : lockers) {
+            if (!locker.isFull()) {
+                return locker.save(bag);
+            }
         }
-        return lockers.get(0).save(bag);
+        throw new LockerIsFullException();
     }
 }
