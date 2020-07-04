@@ -118,4 +118,21 @@ public class LockerRobotManagerTest {
         assertEquals(savedBag, bag);
     }
 
+    @Test
+    void should_get_bag_when_take_M_bag_given_manager_manage_locker1_primaryLockerRobot_with_locker2_superLockerRobot_with_locker3_and_valid_ticket() throws LockerTypeMismatchWithRobot, LockerIsFullException, TicketIsInvalidException {
+        Locker locker1 = new Locker(5, "S");
+        Locker locker2 = new Locker(1, "M");
+        Locker locker3 = new Locker(1, "L");
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Collections.singletonList(locker2));
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Collections.singletonList(locker3));
+        LockerRobotManager manager = new LockerRobotManager(Collections.singletonList(locker1), Arrays.asList(primaryLockerRobot, superLockerRobot));
+        Bag savedBag = new Bag("M");
+        Ticket ticket = manager.save(savedBag);
+
+        Bag bag = manager.take(ticket);
+
+        assertNotNull(ticket);
+        assertEquals(savedBag, bag);
+    }
+
 }

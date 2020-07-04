@@ -7,7 +7,7 @@ public class Bag {
         return type;
     }
 
-    public Bag(String size) {
-        this.type = size;
+    public Bag(String type) {
+        this.type = type;
     }
 }

@@ -18,14 +18,18 @@ public class LockerRobotManager {
         switch (bag.getType()) {
             case "S":
                 for (Locker locker : lockers) {
-                    return locker.save(bag);
+                    Ticket ticket = locker.save(bag);
+                    ticket.setType(TicketType.GIVEN_BY_S_Locker);
+                    return ticket;
                 }
                 break;
             case "M":
                 for (LockerRobot robot : robots) {
                     for (Locker locker : robot.lockers) {
                         if (locker.getType().equals("M")) {
-                            return robot.save(bag);
+                            Ticket ticket = robot.save(bag);
+                            ticket.setType(TicketType.GIVEN_BY_M_Locker);
+                            return ticket;
                         }
                     }
                 }
@@ -34,7 +38,9 @@ public class LockerRobotManager {
                 for (LockerRobot robot : robots) {
                     for (Locker locker : robot.lockers) {
                         if (locker.getType().equals("L")) {
-                            return robot.save(bag);
+                            Ticket ticket = robot.save(bag);
+                            ticket.setType(TicketType.GIVEN_BY_L_Locker);
+                            return ticket;
                         }
                     }
                 }
@@ -44,9 +50,16 @@ public class LockerRobotManager {
     }
 
     public Bag take(Ticket ticket) throws TicketIsInvalidException {
-        for (Locker locker : lockers) {
-            return locker.take(ticket);
+        if (ticket.getType().equals(TicketType.GIVEN_BY_S_Locker)) {
+            for (Locker locker : lockers) {
+                return locker.take(ticket);
+            }
+        } else if (ticket.getType().equals(TicketType.GIVEN_BY_M_Locker)) {
+            for (LockerRobot robot : robots) {
+                return robot.take(ticket);
+            }
         }
+
         return null;
     }
 }
