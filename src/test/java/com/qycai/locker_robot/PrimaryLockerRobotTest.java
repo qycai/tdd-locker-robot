@@ -3,7 +3,6 @@ package com.qycai.locker_robot;
 import com.qycai.locker_robot.exception.LockerIsFullException;
 import com.qycai.locker_robot.exception.TicketIsInvalidException;
 import org.junit.jupiter.api.Test;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.Arrays;
 
