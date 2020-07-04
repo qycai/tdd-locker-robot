@@ -61,4 +61,19 @@ public class SuperLockerRobotTest {
 
         assertThrows(LockerIsFullException.class, () -> superLockerRobot.save(new Bag("L")));
     }
+
+    @Test
+    void should_get_bag_when_take_bag_given_valid_ticket() throws LockerIsFullException, TicketIsInvalidException {
+        Locker locker1 = new Locker(3, "L");
+        Locker locker2 = new Locker(10, "L");
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
+        Bag savedBag = new Bag("L");
+        Ticket ticket = superLockerRobot.save(savedBag);
+
+        Bag bag = superLockerRobot.take(ticket);
+
+        assertNotNull(ticket);
+        assertEquals(savedBag, bag);
+
+    }
 }
