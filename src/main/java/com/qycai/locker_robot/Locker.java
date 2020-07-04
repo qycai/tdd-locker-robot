@@ -17,12 +17,16 @@ public class Locker {
     }
 
     public Ticket save(Bag bag) throws LockerIsFullException {
-        if (record.size() >= capacity) {
+        if (isFull()) {
             throw new LockerIsFullException();
         }
         Ticket ticket = new Ticket();
         record.put(ticket, bag);
         return ticket;
+    }
+
+    public boolean isFull() {
+        return record.size() >= capacity;
     }
 
     public Bag take(Ticket ticket) throws TicketIsInvalidException {
