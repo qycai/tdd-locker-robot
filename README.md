@@ -69,7 +69,7 @@ given：superLockerRobot管理L型的locker1和locker2，用户使用有效票�
 when：取包  
 then：取包成功  
 
-given：superLockerRobot管理L型的locker1和locker2，用户使无有效票据  
+given：superLockerRobot管理L型的locker1和locker2，用户使无效票据  
 when：取包  
 then：取包失败，提示票据无效  
 
