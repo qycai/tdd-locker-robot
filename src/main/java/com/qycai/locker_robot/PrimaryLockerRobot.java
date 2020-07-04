@@ -6,19 +6,13 @@ import com.qycai.locker_robot.exception.TicketIsInvalidException;
 
 import java.util.List;
 
-public class PrimaryLockerRobot {
-    private List<Locker> lockers;
+public class PrimaryLockerRobot extends LockerRobot {
 
     public PrimaryLockerRobot(List<Locker> lockers) throws LockerTypeMismatchWithRobot {
-        for (Locker locker : lockers) {
-            if (locker.getType().equals("M")) {
-                this.lockers = lockers;
-            } else {
-                throw new LockerTypeMismatchWithRobot();
-            }
-        }
+        super(lockers, "M");
     }
 
+    @Override
     public Ticket save(Bag bag) throws LockerIsFullException {
         for (Locker locker : lockers) {
             if (!locker.isFull()) {
@@ -26,14 +20,5 @@ public class PrimaryLockerRobot {
             }
         }
         throw new LockerIsFullException();
-    }
-
-    public Bag take(Ticket ticket) throws TicketIsInvalidException {
-        for (Locker locker : lockers) {
-            if (locker.hasBag(ticket)) {
-                return locker.take(ticket);
-            }
-        }
-        throw new TicketIsInvalidException();
     }
 }
