@@ -49,4 +49,17 @@ public class PrimaryLockerRobotTest {
 
         assertThrows(LockerIsFullException.class, () -> primaryLockerRobot.save(new Bag("M")));
     }
+
+    @Test
+    void should_get_bag_when_take_bag_given_valid_ticket() throws LockerIsFullException, TicketIsInvalidException {
+        Locker locker1 = new Locker(2, "M");
+        Locker locker2 = new Locker(3, "M");
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
+        Bag saveBag = new Bag("M");
+        Ticket ticket = primaryLockerRobot.save(saveBag);
+
+        Bag bag = primaryLockerRobot.take(ticket);
+
+        assertEquals(saveBag, bag);
+    }
 }

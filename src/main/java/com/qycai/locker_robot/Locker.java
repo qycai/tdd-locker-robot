@@ -30,11 +30,15 @@ public class Locker {
     }
 
     public Bag take(Ticket ticket) throws TicketIsInvalidException {
-        if (!record.containsKey(ticket)) {
+        if (!hasBag(ticket)) {
             throw new TicketIsInvalidException();
         }
         Bag bag = record.get(ticket);
         record.remove(ticket);
         return bag;
+    }
+
+    public boolean hasBag(Ticket ticket) {
+        return record.containsKey(ticket);
     }
 }

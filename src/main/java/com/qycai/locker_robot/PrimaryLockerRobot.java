@@ -1,6 +1,7 @@
 package com.qycai.locker_robot;
 
 import com.qycai.locker_robot.exception.LockerIsFullException;
+import com.qycai.locker_robot.exception.TicketIsInvalidException;
 
 import java.util.List;
 
@@ -18,5 +19,14 @@ public class PrimaryLockerRobot {
             }
         }
         throw new LockerIsFullException();
+    }
+
+    public Bag take(Ticket ticket) throws TicketIsInvalidException {
+        for (Locker locker : lockers) {
+            if (locker.hasBag(ticket)) {
+                return locker.take(ticket);
+            }
+        }
+        return null;
     }
 }
