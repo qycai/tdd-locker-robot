@@ -101,5 +101,16 @@ public class SuperLockerRobotTest {
         assertThrows(TicketIsInvalidException.class, () -> superLockerRobot.take(ticket));
     }
 
+    @Test
+    void should_throw_ticketIsInvalidException_when_take_bag_by_superLockerRobot_given_ticket_is_returned_by_locker_which_is_not_managed_by_superLockerRobot() throws LockerIsFullException {
+        Locker locker1 = new Locker(3, "L");
+        Locker locker2 = new Locker(10, "S");
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Collections.singletonList(locker1));
+        Bag savedBag = new Bag("S");
+        Ticket ticket = locker2.save(savedBag);
+
+        assertThrows(TicketIsInvalidException.class, () -> superLockerRobot.take(ticket));
+    }
+
 
 }
