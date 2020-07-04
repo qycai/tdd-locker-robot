@@ -53,6 +53,6 @@ public class LockerTest {
         Ticket ticket = locker.save(savedBag);
         locker.take(ticket);
 
-        assertThrows(TicketIsInvalidException.class, () -> locker.take(new Ticket()));
+        assertThrows(TicketIsInvalidException.class, () -> locker.take(ticket));
     }
 }
