@@ -42,4 +42,11 @@ public class LockerRobotManager {
         }
         return null;
     }
+
+    public Bag take(Ticket ticket) throws TicketIsInvalidException {
+        for (Locker locker : lockers) {
+            return locker.take(ticket);
+        }
+        return null;
+    }
 }
