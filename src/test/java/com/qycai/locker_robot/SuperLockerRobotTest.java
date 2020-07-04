@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SuperLockerRobotTest {
     @Test
@@ -50,5 +49,16 @@ public class SuperLockerRobotTest {
         assertNotNull(ticket);
         Bag bag = locker1.take(ticket);
         assertEquals(savedBag, bag);
+    }
+
+    @Test
+    void should_throw_lockerIsFullException_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_both_locker_have_no_capacity() throws LockerIsFullException {
+        Locker locker1 = new Locker(1, "L");
+        Locker locker2 = new Locker(1, "L");
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
+        superLockerRobot.save(new Bag("L"));
+        superLockerRobot.save(new Bag("L"));
+
+        assertThrows(LockerIsFullException.class, () -> superLockerRobot.save(new Bag("L")));
     }
 }
