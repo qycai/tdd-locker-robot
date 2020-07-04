@@ -18,6 +18,10 @@ given：用户使用伪造票据
 when：取包  
 then：取包失败，提示票据无效  
 
+given：小樱使用已用过的票  
+when：取包  
+then：取包失败，提示票据无效  
+
 ## primaryLockerRobot存取包
 
 given：primaryLockerRobot管理M型的locker1和locker2，locker1和locker2都有剩余空间，普通用户有一个M型包  
@@ -37,6 +41,10 @@ when：取包
 then：取包成功  
 
 given：primaryLockerRobot管理M型的locker1和locker2，用户使用无效票据  
+when：取包  
+then：取包失败，提示票无效  
+
+given：primaryLockerRobot管理M型的locker1和locker2，小樱使用已用过的票  
 when：取包  
 then：取包失败，提示票无效  
 
@@ -71,4 +79,8 @@ then：取包失败，提示票据无效
 
 given：primaryLockerRobot管理M型的locker1，superLockerRobot管理L型的locker2，还有一个S型locker3，用户的M型的包存入locker1  
 when：小樱找locker3取包  
+then：取包失败，提示票据无效  
+
+given：superLockerRobot管理L型的locker1和locker2，小樱使用已用过的票  
+when：取包  
 then：取包失败，提示票据无效  
