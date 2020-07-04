@@ -1,6 +1,7 @@
 package com.qycai.locker_robot;
 
 import com.qycai.locker_robot.exception.LockerIsFullException;
+import com.qycai.locker_robot.exception.TicketIsInvalidException;
 
 import java.util.List;
 
@@ -14,26 +15,30 @@ public class LockerRobotManager {
     }
 
     public Ticket save(Bag bag) throws LockerIsFullException {
-        if (bag.getType().equals("S")) {
-            for (Locker locker : lockers) {
-                return locker.save(bag);
-            }
-        } else if (bag.getType().equals("M")) {
-            for (LockerRobot robot : robots) {
-                for (Locker locker : robot.lockers) {
-                    if (locker.getType().equals("M")) {
-                        return robot.save(bag);
+        switch (bag.getType()) {
+            case "S":
+                for (Locker locker : lockers) {
+                    return locker.save(bag);
+                }
+                break;
+            case "M":
+                for (LockerRobot robot : robots) {
+                    for (Locker locker : robot.lockers) {
+                        if (locker.getType().equals("M")) {
+                            return robot.save(bag);
+                        }
                     }
                 }
-            }
-        } else if (bag.getType().equals("L")) {
-            for (LockerRobot robot : robots) {
-                for (Locker locker : robot.lockers) {
-                    if (locker.getType().equals("L")) {
-                        return robot.save(bag);
+                break;
+            case "L":
+                for (LockerRobot robot : robots) {
+                    for (Locker locker : robot.lockers) {
+                        if (locker.getType().equals("L")) {
+                            return robot.save(bag);
+                        }
                     }
                 }
-            }
+                break;
         }
         return null;
     }
