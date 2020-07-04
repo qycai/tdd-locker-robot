@@ -48,6 +48,10 @@ given：primaryLockerRobot管理M型的locker1和locker2，小樱使用已用过
 when：取包  
 then：取包失败，提示票无效  
 
+given：存在一个S型locker1和primaryLockerRobot  
+when：使用primaryLockerRobot管理locker1  
+then：配置失败，提示locker型号和robot不匹配  
+
 ## superLockerRobot存取包
 given：superLockerRobot管理L型的locker1和locker2，locker1剩余空间大于locker2的剩余空间，普通用户有一个L型包  
 when：存包  
@@ -84,3 +88,11 @@ then：取包失败，提示票据无效
 given：superLockerRobot管理L型的locker1和locker2，小樱使用已用过的票  
 when：取包  
 then：取包失败，提示票据无效  
+
+given：存在一个S型locker1和superLockerRobot  
+when：使用superLockerRobot管理locker1  
+then：配置失败，提示locker型号和robot不匹配  
+
+given：存在一个M型locker1和superLockerRobot  
+when：使用superLockerRobot管理locker1  
+then：配置失败，提示locker型号和robot不匹配  
