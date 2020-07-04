@@ -3,6 +3,7 @@ package com.qycai.locker_robot;
 import com.qycai.locker_robot.exception.LockerIsFullException;
 import com.qycai.locker_robot.exception.TicketIsInvalidException;
 import org.junit.jupiter.api.Test;
+import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.Arrays;
 
@@ -40,7 +41,7 @@ public class PrimaryLockerRobotTest {
     }
 
     @Test
-    void should_throw_lockerIsFullException_when_save_bag_given_primary_locker_robot_manager_two_M_locker_and_both_are_full() throws LockerIsFullException, TicketIsInvalidException {
+    void should_throw_lockerIsFullException_when_save_bag_given_primary_locker_robot_manager_two_M_locker_and_both_are_full() throws LockerIsFullException {
         Locker locker1 = new Locker(1, "M");
         Locker locker2 = new Locker(1, "M");
         locker1.save(new Bag("M"));
@@ -61,5 +62,16 @@ public class PrimaryLockerRobotTest {
         Bag bag = primaryLockerRobot.take(ticket);
 
         assertEquals(saveBag, bag);
+    }
+
+    @Test
+    void should_throw_ticketIsInvalidException_when_take_bag_given_invalid_ticket() throws LockerIsFullException {
+        Locker locker1 = new Locker(2, "M");
+        Locker locker2 = new Locker(3, "M");
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
+        Bag saveBag = new Bag("M");
+        primaryLockerRobot.save(saveBag);
+
+        assertThrows(TicketIsInvalidException.class, () -> primaryLockerRobot.take(new Ticket()));
     }
 }
