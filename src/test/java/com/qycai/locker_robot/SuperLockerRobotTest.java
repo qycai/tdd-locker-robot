@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SuperLockerRobotTest {
     @Test
-    void should_return_ticket_and_saved_to_1st_locker_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_1st_locker_capacity_is_more_than_2nd_locker() throws TicketIsInvalidException, LockerIsFullException {
+    void should_return_ticket_and_saved_to_1st_locker_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_1st_locker_capacity_is_more_than_2nd_locker() throws TicketIsInvalidException, LockerIsFullException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(5, "L");
         Locker locker2 = new Locker(2, "L");
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
@@ -26,7 +26,7 @@ public class SuperLockerRobotTest {
     }
 
     @Test
-    void should_return_ticket_and_saved_to_2nd_locker_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_1st_locker_capacity_is_less_than_2nd_locker() throws TicketIsInvalidException, LockerIsFullException {
+    void should_return_ticket_and_saved_to_2nd_locker_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_1st_locker_capacity_is_less_than_2nd_locker() throws TicketIsInvalidException, LockerIsFullException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(2, "L");
         Locker locker2 = new Locker(6, "L");
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
@@ -40,7 +40,7 @@ public class SuperLockerRobotTest {
     }
 
     @Test
-    void should_return_ticket_and_saved_to_1st_locker_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_1st_locker_capacity_equals_to_2nd_locker() throws TicketIsInvalidException, LockerIsFullException {
+    void should_return_ticket_and_saved_to_1st_locker_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_1st_locker_capacity_equals_to_2nd_locker() throws TicketIsInvalidException, LockerIsFullException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(2, "L");
         Locker locker2 = new Locker(2, "L");
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
@@ -54,7 +54,7 @@ public class SuperLockerRobotTest {
     }
 
     @Test
-    void should_throw_lockerIsFullException_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_both_locker_have_no_capacity() throws LockerIsFullException {
+    void should_throw_lockerIsFullException_when_save_bag_given_superLockerRobot_manage_two_L_lockers_and_both_locker_have_no_capacity() throws LockerIsFullException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(1, "L");
         Locker locker2 = new Locker(1, "L");
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
@@ -65,7 +65,7 @@ public class SuperLockerRobotTest {
     }
 
     @Test
-    void should_get_bag_when_take_bag_given_valid_ticket() throws LockerIsFullException, TicketIsInvalidException {
+    void should_get_bag_when_take_bag_given_valid_ticket() throws LockerIsFullException, TicketIsInvalidException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(3, "L");
         Locker locker2 = new Locker(10, "L");
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
@@ -80,7 +80,7 @@ public class SuperLockerRobotTest {
     }
 
     @Test
-    void should_throw_ticketIsInvalidException_when_take_bag_given_invalid_ticket() throws LockerIsFullException {
+    void should_throw_ticketIsInvalidException_when_take_bag_given_invalid_ticket() throws LockerIsFullException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(3, "L");
         Locker locker2 = new Locker(10, "L");
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
@@ -103,7 +103,7 @@ public class SuperLockerRobotTest {
     }
 
     @Test
-    void should_throw_ticketIsInvalidException_when_take_bag_by_superLockerRobot_given_ticket_is_returned_by_locker_which_is_not_managed_by_superLockerRobot() throws LockerIsFullException {
+    void should_throw_ticketIsInvalidException_when_take_bag_by_superLockerRobot_given_ticket_is_returned_by_locker_which_is_not_managed_by_superLockerRobot() throws LockerIsFullException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(3, "L");
         Locker locker2 = new Locker(10, "S");
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Collections.singletonList(locker1));
@@ -114,7 +114,7 @@ public class SuperLockerRobotTest {
     }
 
     @Test
-    void should_throw_ticketIsInvalidException_when_take_bag_given_used_ticket() throws LockerIsFullException, TicketIsInvalidException {
+    void should_throw_ticketIsInvalidException_when_take_bag_given_used_ticket() throws LockerIsFullException, TicketIsInvalidException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(3, "L");
         Locker locker2 = new Locker(10, "L");
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(locker1, locker2));
@@ -123,6 +123,14 @@ public class SuperLockerRobotTest {
         superLockerRobot.take(ticket);
 
         assertThrows(TicketIsInvalidException.class, () -> superLockerRobot.take(ticket));
+    }
+
+    @Test
+    void should_throw_lockerTypeMismatchWithRobot_when_config_locker_and_robot_given_S_locker_and_superLockerRobot() throws LockerIsFullException, TicketIsInvalidException {
+        Locker locker1 = new Locker(2, "S");
+        Locker locker2 = new Locker(3, "L");
+
+        assertThrows(LockerTypeMismatchWithRobot.class, () -> new SuperLockerRobot(Arrays.asList(locker1, locker2)));
     }
 
 
