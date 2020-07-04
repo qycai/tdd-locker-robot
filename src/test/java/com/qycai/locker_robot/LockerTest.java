@@ -41,7 +41,17 @@ public class LockerTest {
     void should_throw_ticketIsInvalidException_when_take_bag_given_invalid_ticket() throws LockerIsFullException {
         Bag savedBag = new Bag("S");
         Locker locker = new Locker(3, "S");
+        locker.save(savedBag);
+
+        assertThrows(TicketIsInvalidException.class, () -> locker.take(new Ticket()));
+    }
+
+    @Test
+    void should_throw_ticketIsInvalidException_when_take_bag_given_used_ticket() throws LockerIsFullException, TicketIsInvalidException {
+        Bag savedBag = new Bag("S");
+        Locker locker = new Locker(3, "S");
         Ticket ticket = locker.save(savedBag);
+        locker.take(ticket);
 
         assertThrows(TicketIsInvalidException.class, () -> locker.take(new Ticket()));
     }
