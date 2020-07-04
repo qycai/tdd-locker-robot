@@ -28,6 +28,6 @@ public class SuperLockerRobot {
                 return locker.take(ticket);
             }
         }
-        return null;
+        throw new TicketIsInvalidException();
     }
 }
