@@ -14,6 +14,19 @@ public class LockerRobotManager {
     }
 
     public Ticket save(Bag bag) throws LockerIsFullException {
-        return lockers.get(0).save(bag);
+        if (bag.getType().equals("S")) {
+            for (Locker locker : lockers) {
+                return locker.save(bag);
+            }
+        } else if (bag.getType().equals("M")) {
+            for (LockerRobot robot : robots) {
+                for (Locker locker : robot.lockers) {
+                    if (locker.getType().equals("M")) {
+                        return robot.save(bag);
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
