@@ -8,12 +8,16 @@ import java.util.Map;
 
 public class Locker {
     private int capacity;
-    private String size;
+    private String type;
     private Map<Ticket, Bag> record = new HashMap<>();
 
-    public Locker(int capacity, String size) {
+    public String getType() {
+        return type;
+    }
+
+    public Locker(int capacity, String type) {
         this.capacity = capacity;
-        this.size = size;
+        this.type = type;
     }
 
     public Ticket save(Bag bag) throws LockerIsFullException {

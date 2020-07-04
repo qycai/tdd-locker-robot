@@ -1,6 +1,7 @@
 package com.qycai.locker_robot;
 
 import com.qycai.locker_robot.exception.LockerIsFullException;
+import com.qycai.locker_robot.exception.LockerTypeMismatchWithRobot;
 import com.qycai.locker_robot.exception.TicketIsInvalidException;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PrimaryLockerRobotTest {
     @Test
-    void should_return_ticket_and_save_bag_to_1st_locker_when_save_bag_given_primary_locker_robot_manager_two_M_locker_and_both_have_capacity() throws LockerIsFullException, TicketIsInvalidException {
+    void should_return_ticket_and_save_bag_to_1st_locker_when_save_bag_given_primary_locker_robot_manager_two_M_locker_and_both_have_capacity() throws LockerIsFullException, TicketIsInvalidException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(2, "M");
         Locker locker2 = new Locker(3, "M");
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
@@ -25,7 +26,7 @@ public class PrimaryLockerRobotTest {
     }
 
     @Test
-    void should_return_ticket_and_save_bag_to_2nd_locker_when_save_bag_given_primary_locker_robot_manager_two_M_locker_and_1st_is_full() throws LockerIsFullException, TicketIsInvalidException {
+    void should_return_ticket_and_save_bag_to_2nd_locker_when_save_bag_given_primary_locker_robot_manager_two_M_locker_and_1st_is_full() throws LockerIsFullException, TicketIsInvalidException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(1, "M");
         Locker locker2 = new Locker(3, "M");
         locker1.save(new Bag("M"));
@@ -40,7 +41,7 @@ public class PrimaryLockerRobotTest {
     }
 
     @Test
-    void should_throw_lockerIsFullException_when_save_bag_given_primary_locker_robot_manager_two_M_locker_and_both_are_full() throws LockerIsFullException {
+    void should_throw_lockerIsFullException_when_save_bag_given_primary_locker_robot_manager_two_M_locker_and_both_are_full() throws LockerIsFullException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(1, "M");
         Locker locker2 = new Locker(1, "M");
         locker1.save(new Bag("M"));
@@ -51,7 +52,7 @@ public class PrimaryLockerRobotTest {
     }
 
     @Test
-    void should_get_bag_when_take_bag_given_valid_ticket() throws LockerIsFullException, TicketIsInvalidException {
+    void should_get_bag_when_take_bag_given_valid_ticket() throws LockerIsFullException, TicketIsInvalidException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(2, "M");
         Locker locker2 = new Locker(3, "M");
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
@@ -64,7 +65,7 @@ public class PrimaryLockerRobotTest {
     }
 
     @Test
-    void should_throw_ticketIsInvalidException_when_take_bag_given_invalid_ticket() throws LockerIsFullException {
+    void should_throw_ticketIsInvalidException_when_take_bag_given_invalid_ticket() throws LockerIsFullException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(2, "M");
         Locker locker2 = new Locker(3, "M");
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
@@ -75,7 +76,7 @@ public class PrimaryLockerRobotTest {
     }
 
     @Test
-    void should_throw_ticketIsInvalidException_when_take_bag_given_used_ticket() throws LockerIsFullException, TicketIsInvalidException {
+    void should_throw_ticketIsInvalidException_when_take_bag_given_used_ticket() throws LockerIsFullException, TicketIsInvalidException, LockerTypeMismatchWithRobot {
         Locker locker1 = new Locker(2, "M");
         Locker locker2 = new Locker(3, "M");
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
@@ -84,5 +85,13 @@ public class PrimaryLockerRobotTest {
         primaryLockerRobot.take(ticket);
 
         assertThrows(TicketIsInvalidException.class, () -> primaryLockerRobot.take(ticket));
+    }
+
+    @Test
+    void should_throw_lockerTypeMismatchWithRobot_when_config_locker_and_robot_given_S_locker_and_primaryLockerRobot() throws LockerIsFullException, TicketIsInvalidException {
+        Locker locker1 = new Locker(2, "S");
+        Locker locker2 = new Locker(3, "M");
+
+        assertThrows(LockerTypeMismatchWithRobot.class, () -> new PrimaryLockerRobot(Arrays.asList(locker1, locker2)));
     }
 }

@@ -1,6 +1,7 @@
 package com.qycai.locker_robot;
 
 import com.qycai.locker_robot.exception.LockerIsFullException;
+import com.qycai.locker_robot.exception.LockerTypeMismatchWithRobot;
 import com.qycai.locker_robot.exception.TicketIsInvalidException;
 import org.junit.jupiter.api.Test;
 
@@ -90,8 +91,8 @@ public class SuperLockerRobotTest {
     }
 
     @Test
-    void should_throw_ticketIsInvalidException_when_take_bag_by_superLockerRobot_given_ticket_is_returned_by_primaryLockerRobot() throws LockerIsFullException {
-        Locker locker1 = new Locker(3, "L");
+    void should_throw_ticketIsInvalidException_when_take_bag_by_superLockerRobot_given_ticket_is_returned_by_primaryLockerRobot() throws LockerIsFullException, LockerTypeMismatchWithRobot {
+        Locker locker1 = new Locker(3, "M");
         Locker locker2 = new Locker(10, "L");
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Collections.singletonList(locker1));
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Collections.singletonList(locker2));
