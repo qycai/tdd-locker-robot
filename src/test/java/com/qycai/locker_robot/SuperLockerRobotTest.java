@@ -133,5 +133,12 @@ public class SuperLockerRobotTest {
         assertThrows(LockerTypeMismatchWithRobot.class, () -> new SuperLockerRobot(Arrays.asList(locker1, locker2)));
     }
 
+    @Test
+    void should_throw_lockerTypeMismatchWithRobot_when_config_locker_and_robot_given_M_locker_and_superLockerRobot() throws LockerIsFullException, TicketIsInvalidException {
+        Locker locker1 = new Locker(2, "M");
+        Locker locker2 = new Locker(3, "L");
+
+        assertThrows(LockerTypeMismatchWithRobot.class, () -> new SuperLockerRobot(Arrays.asList(locker1, locker2)));
+    }
 
 }
