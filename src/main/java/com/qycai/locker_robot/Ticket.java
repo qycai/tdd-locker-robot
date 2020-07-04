@@ -1,7 +1,7 @@
 package com.qycai.locker_robot;
 
 public class Ticket {
-    private TicketType type = TicketType.GIVEN_BY_S_Locker;
+    private TicketType type;
 
     public void setType(TicketType type) {
         this.type = type;
